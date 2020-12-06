@@ -1,19 +1,17 @@
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import PlanetsContainer from 'Containers/PlanetsContainer'
-import Navigation from 'Components/Navigation'
-import PlanetsState from 'Context/Planets/PlanetsState'
+import { Switch, Redirect } from 'react-router-dom'
+import Game from 'Containers/Game/Game'
+import MouseState from 'Context/Mouse/MouseState'
 
 function App() {
   return (
     <>
-        <PlanetsState>
-            <Navigation />
+        <MouseState>
+            <Game />
             <Switch>
-                <Route path="/planets" component={PlanetsContainer} />
-                <Redirect to="/planets" />
+                <Redirect to="/game" />
             </Switch>
-        </PlanetsState>
+        </MouseState>
     </>
   )
 }

@@ -313,20 +313,19 @@ module.exports = function (webpackEnv) {
         modules.additionalModulePaths || []
       ),
       // These are the reasonable defaults supported by the Node ecosystem.
-      // We also include JSX as a common component filename extension to support
+      // We also include JSX as a common components filename extension to support
       // some tools, although we do not recommend using it, see:
       // https://github.com/facebook/create-react-app/issues/290
       // `web` extension prefixes have been added for better support
       // for React Native Web.
       extensions: paths.moduleFileExtensions
         .map(ext => `.${ext}`)
-        .filter(ext => useTypeScript || !ext.includes('ts')),
+        .filter(ext => useTypeScript || !ext.includes('ts') || !ext.includes('tsx')),
       alias: {
         Context: path.resolve(__dirname, '../src/context'),
         Components: path.resolve(__dirname, '../src/components'),
         Containers: path.resolve(__dirname, '../src/containers'),
         Types: path.resolve(__dirname, '../src/types'),
-        Axios: path.resolve(__dirname, '../src/axios'),
 
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/

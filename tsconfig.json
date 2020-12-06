@@ -24,8 +24,7 @@
       "Types/*": ["types/*"],
       "Context/*": ["context/*"],
       "Components/*": ["components/*"],
-      "Containers/*": ["containers/*"],
-      "Axios/*": ["axios/*"]
+      "Containers/*": ["containers/*"]
     }
   },
   "include": [
