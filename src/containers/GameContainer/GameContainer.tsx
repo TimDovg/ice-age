@@ -1,17 +1,18 @@
-import React, {useContext, useRef} from 'react'
+import React, {useContext} from 'react'
 import Squirrel from 'Components/Squirrel/Squirrel'
 import MouseContext from 'Context/Mouse/MouseContext'
 import StuffsRandomizerContainer from 'Containers/StuffsRandomizerContainer'
+import SquirrelContext from 'Context/Squirrel/SquirrelContext'
+import InfoPanel from 'Components/InfoPanel/InfoPanel'
 
 import styles from './GameStyles.module.scss'
 
 const GameContainer: React.FC = () => {
     const { changeHorizontalPosition } = useContext(MouseContext)
-
-    const heroElement = useRef<HTMLImageElement|null>(null)
+    const { squirrelState } = useContext(SquirrelContext)
 
     const onMouseMovePage = ({ pageX }: React.MouseEvent) => {
-        const maxPosition: number = document.body.offsetWidth - (heroElement.current?.offsetWidth || 0)
+        const maxPosition: number = document.body.offsetWidth - (squirrelState?.squirrelElement?.offsetWidth || 0)
         const isMaxPosition: boolean = pageX > maxPosition
 
         if (isMaxPosition) {
@@ -32,7 +33,8 @@ const GameContainer: React.FC = () => {
             className={styles.mainGamePage}
         >
             <StuffsRandomizerContainer />
-            <Squirrel heroElement={heroElement} />
+            <Squirrel />
+            <InfoPanel />
             <div className={styles.cover}/>
         </div>
     )
