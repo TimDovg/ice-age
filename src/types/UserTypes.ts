@@ -1,6 +1,7 @@
 export interface UserContextType {
     userState: UserStateType,
-    addUserScorePoints: () => void
+    addUserScorePoints: () => void,
+    minusLife: () => void
 }
 
 export interface UserStateType {
@@ -10,6 +11,7 @@ export interface UserStateType {
 
 export enum UserActions {
     ADD_SCORE_POINTS = 'ADD_SCORE_POINTS',
+    MINUS_LIFE = 'MINUS_LIFE',
     DEFAULT = 'DEFAULT'
 }
 
@@ -19,5 +21,6 @@ export interface UserActionType {
 
 export interface UserHandlersType {
     [UserActions.ADD_SCORE_POINTS]: (state: UserStateType) => UserStateType
+    [UserActions.MINUS_LIFE]: (state: UserStateType) => UserStateType
     [UserActions.DEFAULT]: (state: UserStateType) => UserStateType
 }

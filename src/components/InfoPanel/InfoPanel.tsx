@@ -10,7 +10,7 @@ const InfoPanel: React.FC = () => {
 
     return (
         <div className={styles.panel}>
-            <p>Points: <span className="text-success d-inline font-weight-bold">{userState?.scorePoints}</span></p>
+            <p>Points: <span className="text-success font-weight-bold">{userState?.scorePoints}</span></p>
             <div>
                 {new Array(healthPoints).fill(null).map((heart, index) => (
                     <img key={index} src={life} alt={'life'} />

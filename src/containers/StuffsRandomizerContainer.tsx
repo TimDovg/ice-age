@@ -1,14 +1,28 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import Stuff from 'Components/Stuff/Stuff'
 import badFish from 'Images/badfish.png'
 import nut from 'Images/nut.png'
 import {getRandomNumber} from 'Utils/utils'
+import UserContext from 'Context/User/UserContext'
 
 const StuffsRandomizerContainer: React.FC = () => {
     const [stuffs, setStuffs] = useState<Array<React.ReactElement>>([])
+    const { addUserScorePoints, minusLife } = useContext(UserContext)
+
+    const onCatchBadFishHandler = () => minusLife && minusLife()
+    const onCatchNutHandler = () => addUserScorePoints && addUserScorePoints()
 
     const STUFFS_CONFIG = useRef({
-        STUFFS: [badFish, nut],
+        STUFFS: [
+            {
+                src: badFish,
+                handler: onCatchBadFishHandler
+            },
+            {
+                src: nut,
+                handler: onCatchNutHandler
+            }
+        ],
         STUFFS_QUANTITY_LEFT: 6
     })
 

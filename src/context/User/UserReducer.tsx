@@ -5,6 +5,14 @@ const handlers: UserHandlersType = {
         ...state,
         scorePoints: (state?.scorePoints || 0) + 1
     }),
+    [UserActions.MINUS_LIFE]: (state: UserStateType): UserStateType => {
+        const lifePoints = state?.healthPoints || 0
+
+        return {
+            ...state,
+            healthPoints: lifePoints && lifePoints - 1
+        }
+    },
     [UserActions.DEFAULT]: (state: UserStateType): UserStateType => state
 }
 

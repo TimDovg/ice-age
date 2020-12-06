@@ -1,23 +1,27 @@
 import React, {useContext, useEffect, useRef, useState} from 'react'
 import {getRandomElement, getRandomNumber} from 'Utils/utils'
+import SquirrelContext from 'Context/Squirrel/SquirrelContext'
 
 import styles from './StuffStyles.module.scss'
-import SquirrelContext from 'Context/Squirrel/SquirrelContext'
-import UserContext from 'Context/User/UserContext'
+
+type StuffType = {
+    src: string,
+    handler?: () => void
+}
 
 type StuffProps = {
-    stuffs: Array<string>
+    stuffs: Array<StuffType>
 }
 
 const Stuff: React.FC<StuffProps> = ({ stuffs }) => {
-    const [randomElement, setRandomElement] = useState('')
+    const [randomElement, setRandomElement] = useState<StuffType>({ src: '' })
     const [verticalPosition, setVerticalPosition] = useState<number>(0)
     const [horizontalPosition, setHorizontalPosition] = useState<number>(0)
     const { squirrelState } = useContext(SquirrelContext)
-    const { addUserScorePoints } = useContext(UserContext)
 
     const stuffElement = useRef<HTMLImageElement|null>(null)
     const verticalPositionState = useRef<number>(verticalPosition)
+    const randomElementRef = useRef<StuffType|null>(null)
 
     const isCaught = () => {
         const stuffHeight: number = verticalPositionState.current + (stuffElement.current?.offsetHeight || 0)
@@ -33,7 +37,7 @@ const Stuff: React.FC<StuffProps> = ({ stuffs }) => {
         const isCaught: boolean = isSquirrelHeightZone && (isStuffStartOnSquirrel || isStuffEndOnSquirrel)
 
         if (isCaught) {
-            addUserScorePoints && addUserScorePoints()
+            randomElementRef.current?.handler && randomElementRef.current?.handler()
         }
 
         return isCaught
@@ -48,7 +52,7 @@ const Stuff: React.FC<StuffProps> = ({ stuffs }) => {
             verticalPositionState.current = 0
             setVerticalPosition(0)
             recalculateHorizontalPosition()
-            setRandomElement(getRandomElement(stuffs))
+            defineRandomElement()
         } else {
             setVerticalPosition(position => {
                 const step = 15
@@ -68,10 +72,19 @@ const Stuff: React.FC<StuffProps> = ({ stuffs }) => {
         setHorizontalPosition(getRandomNumber(fullWindowWidth - Number(stuffWidth)))
     }
 
+    const defineRandomElement = () => {
+        const element = getRandomElement(stuffs)
+
+        setRandomElement(element)
+        randomElementRef.current = element
+    }
+
     useEffect(() => {
-        setInterval(setNewPosition, 30)
+        const interval = setInterval(setNewPosition, 30)
         recalculateHorizontalPosition()
-        setRandomElement(getRandomElement(stuffs))
+        defineRandomElement()
+
+        return () => clearInterval(interval)
         // eslint-disable-next-line
     }, [])
 
@@ -80,7 +93,7 @@ const Stuff: React.FC<StuffProps> = ({ stuffs }) => {
             ref={stuffElement}
             className={styles.stuff}
             style={{ left: horizontalPosition, top: verticalPosition }}
-            src={randomElement}
+            src={randomElement.src}
             alt={'Stuff item'}
         />
     )

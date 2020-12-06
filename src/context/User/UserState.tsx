@@ -12,11 +12,13 @@ const UserState: React.FC = ({ children }) => {
     const [userState, dispatch] = useReducer(UserReducer, initialUser)
 
     const addUserScorePoints = () => dispatch({ type: UserActions.ADD_SCORE_POINTS })
+    const minusLife = () => dispatch({ type: UserActions.MINUS_LIFE })
 
     return (
         <UserContext.Provider value={{
             userState,
-            addUserScorePoints
+            addUserScorePoints,
+            minusLife
         }}>
             {children}
         </UserContext.Provider>

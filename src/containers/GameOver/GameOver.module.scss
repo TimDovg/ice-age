@@ -1,0 +1,15 @@
+.gameOver {
+  background: url("../../images/the_end.png") no-repeat;
+  background-size: 100%;
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  font-size: 46px;
+}
+
+.info {
+  margin-top: 300px;
+  text-align: center;
+}
