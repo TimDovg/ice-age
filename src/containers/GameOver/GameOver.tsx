@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import UserContext from 'Context/User/UserContext'
 
-import styles from './GameOver.module.scss'
+import styles from './GameOverStyles.module.scss'
 
 const GameOver: React.FC = () => {
     const { userState } = useContext(UserContext)

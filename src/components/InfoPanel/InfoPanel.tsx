@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import UserContext from 'Context/User/UserContext'
 import life from 'Images/life.png'
 
-import styles from './InfoPanel.module.scss'
+import styles from './InfoPanelStyles.module.scss'
 
 const InfoPanel: React.FC = () => {
     const { userState } = useContext(UserContext)

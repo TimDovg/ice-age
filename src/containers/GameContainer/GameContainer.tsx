@@ -7,7 +7,7 @@ import InfoPanel from 'Components/InfoPanel/InfoPanel'
 import GameOver from 'Containers/GameOver/GameOver'
 import UserContext from 'Context/User/UserContext'
 
-import styles from './GameStyles.module.scss'
+import styles from './GameContainerStyles.module.scss'
 
 const GameContainer: React.FC = () => {
     const { changeHorizontalPosition } = useContext(MouseContext)
